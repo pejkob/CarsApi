@@ -6,31 +6,62 @@ namespace CarsApi.Controllers
 {
     [Route("cars")]
     [ApiController]
+
     public class CarController : ControllerBase
     {
+        public ResponseResult response;
+        public CarController()
+        {
+            response = new();
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<Car>> Get()
         {
             using (var context = new CarContext())
             {
-                return Ok(context.Cars.ToList());
+                var result = context.Cars.ToList();
+                if (result != null)
+                {
+                    response.Result = result;
+                    response.IsSuccess = true;
+                    response.Message = "Sikeres lekérdezés";
+                    return Ok(context.Cars.ToList());
+                }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Message = "Hiba";
+                    return BadRequest(response);
+                }
             }
-
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Car> GetById(Guid id) 
+        public ActionResult<Car> GetById(Guid id)
         {
-            using (var context = new CarContext()) 
+            using (var context = new CarContext())
             {
                 var result = context.Cars.First(x => x.Id == id);
-                return Ok(result.AsDto());
+                if (result != null)
+                {
+                    response.Result = result;
+                    response.IsSuccess = true;
+                    response.Message = "Sikeres lekérdezés";
+
+                    return Ok(response);
+                }
+                else
+                {
+                    response.Message = "Hiba";
+                    return BadRequest(response.Message);
+                }
             }
         }
 
 
         [HttpPost]
-        public ActionResult<CarDto> Post(CreatedCarDto car) 
+        public ActionResult<CarDto> Post(CreatedCarDto car)
         {
             using (var context = new CarContext())
             {
@@ -42,43 +73,76 @@ namespace CarsApi.Controllers
                     Color = car.Color,
                     CreatedTime = DateTime.Now
                 };
+                if (request != null)
+                {
+                    context.Cars.Add(request);
+                    context.SaveChanges();
 
-                context.Cars.Add(request);
-                context.SaveChanges();
+                    response.Result = request;
+                    response.IsSuccess = true;
+                    response.Message = "Sikeres hozzáadás";
 
-                return Ok(request.AsDto());
+                    return StatusCode(201,response);
+                }
+                else
+                {
+                    response.Message = "Hiba";
+                    return BadRequest(response.Message);
+                }
             }
- 
+
         }
 
         [HttpPut("{id}")]
         public ActionResult<Car> Put(Guid id, UpdateCarDto updateCarDto)
         {
-            using (var context = new CarContext()) 
+            using (var context = new CarContext())
             {
                 var modifyCar = context.Cars.First(x => x.Id == id);
-                
-                modifyCar.Name = updateCarDto.Name;
-                modifyCar.Description = updateCarDto.Description;
-                modifyCar.Color = updateCarDto.Color;
+                if (modifyCar != null)
+                {
+                    response.Result = modifyCar;
+                    response.IsSuccess = true;
+                    response.Message = "Sikeres módosítás";
 
-                context.Cars.Update(modifyCar);
-                context.SaveChanges();
+                    modifyCar.Name = updateCarDto.Name;
+                    modifyCar.Description = updateCarDto.Description;
+                    modifyCar.Color = updateCarDto.Color;
 
-                return Ok(modifyCar.AsDto());
+                    context.Cars.Update(modifyCar);
+                    context.SaveChanges();
+
+                    return Ok(response);
+                }
+                else
+                {
+                    response.Message = "Hiba";
+                    return BadRequest(response);
+                }
             }
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<Car> Delete(Guid id) 
+        public ActionResult<Car> Delete(Guid id)
         {
             using (var context = new CarContext())
             {
-                var deleteCar = context.Cars.First(x => x.Id == id);
+                var deleteCar = context.Cars.FirstOrDefault(x => x.Id == id);
 
-                context.Cars.Remove(deleteCar);
-                context.SaveChanges();
-                return Ok(deleteCar.AsDto());
+                if (deleteCar != null)
+                {
+                    response.Result = deleteCar;
+                    response.IsSuccess = true;
+                    response.Message = "Sikeres törlés";
+                    context.Cars.Remove(deleteCar);
+                    context.SaveChanges();
+                    return Ok(response);
+                }
+                else
+                {
+                    response.Message = "Hiba";
+                    return BadRequest(response);
+                }
             }
         }
     }

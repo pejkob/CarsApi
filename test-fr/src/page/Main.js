@@ -1,32 +1,25 @@
 import Card1 from "../components/cards/Card1"
+import Data from "../hooks/Data"
 
-export default function Main()
+ function Main()
 {
-    return(
+    const cards= Data.map(item=>
+    {
+        return(
+            <>
+            <Card1
+             id={item.id}
+             name={item.name}
+            description={item.description}
+            color={item.color}
+             />
+            </>
+        )});
+
+    return( 
         <div>
-            <Card1
-            id={1}
-            name={"audi"}
-            description={"új"}
-            color={"kék"}
-
-            />
-            <Card1
-             id={2}
-             name={"bmw"}
-             description={"használt"}
-             color={"fekete"}
- 
-            />
-            <Card1
-             id={3}
-             name={"skoda"}
-             description={"roncs"}
-             color={"narancs"}
- 
-            />
-         
+            {cards}
         </div>
-    )
-}
-
+        )}
+        
+export default Main;

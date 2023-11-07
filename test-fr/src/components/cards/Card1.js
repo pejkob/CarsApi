@@ -3,9 +3,9 @@
 export default function Card1(props)
 {
     return (
-        <div key={props.id} className="card">
+        <div key={props.key} className="card">
             <div className="card-body">
-                <h5 className="card-title">Name: {props.name}</h5>
+                <h5 className="card-title">{props.name}</h5>
                 <p className="card-text">{props.description}</p>
             </div>
             <ul className="list-group list-group-flush">

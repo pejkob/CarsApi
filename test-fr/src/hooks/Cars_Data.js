@@ -3,30 +3,27 @@ import Card1 from "../components/cards/Card1";
 
 export default function Cars_Data() {
 
+   
+
     const [adat,setData]=useState([]);
     const url="https://localhost:7049/cars";
-
     useEffect(function (){
         fetch(url).then(response => response.json())
-        .then(data => setData(data))
+        .then(data => setData(data.result))
     }, [])
    
-    const Carcards=adat.map(item=>
+    const cards=adat.map(item=>
     {
         return(
-            <>
-            <Card1
-             key={item.id}
-             {...item}
-             />
-            </>
-        )});
-
-    return(
-        
-            <div className="col-md-10">
-            {Carcards}
-        </div>
        
+        <div>
+         <Card1 id={item.id} name={item.name} color={item.color} description={item.description} />
+        </div>
+         
+        )});
+    return(
+        <>
+            {cards}
+        </>
     )
 }

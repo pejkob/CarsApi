@@ -11,23 +11,21 @@ export default function Cars_Data() {
         .then(data => setData(data))
     }, [])
    
-    const cards=adat.map(item=>
+    const Carcards=adat.map(item=>
     {
         return(
             <>
             <Card1
              key={item.id}
-             name={item.name}
-             description={item.description}
-             color={item.color}
+             {...item}
              />
             </>
         )});
 
     return(
-        <>
-            {cards}
-            <button onClick={()=>{setData(adat+1)}}>Adat</button>
+        <><div className="col-md-10">
+            {Carcards}
+        </div>
         </>
     )
 }

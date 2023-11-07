@@ -6,10 +6,7 @@ import CarsData from "../hooks/Cars_Data";
 
     return( 
         <div>
-           
             <CarsData/>
-
-            
         </div>
         )}
         

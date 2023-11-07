@@ -24,7 +24,7 @@ export default function Cars_Data() {
 
     return(
         
-        <div className="col-md-10">
+            <div className="col-md-10">
             {Carcards}
         </div>
        

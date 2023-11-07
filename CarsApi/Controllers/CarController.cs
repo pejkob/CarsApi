@@ -26,7 +26,7 @@ namespace CarsApi.Controllers
                     response.Result = result;
                     response.IsSuccess = true;
                     response.Message = "Sikeres lekérdezés";
-                    return Ok(context.Cars.ToList());
+                    return StatusCode(200,response);
                 }
                 else
                 {

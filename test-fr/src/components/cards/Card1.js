@@ -1,6 +1,9 @@
+import React from "react";
+import Cars_Delete from "../../hooks/Cars_Delete";
+
 export default function Card1(props) {
-  // Define a class based on props.color
   const circleClass = props.color === "Mauv" ? "circle-mau" : "circle";
+
 
   return (
     <div key={props.key} className="card">
@@ -16,12 +19,15 @@ export default function Card1(props) {
       </div>
       <ul className="list-group list-group-flush">
         <li className="list-group-item">{props.color}</li>
-        </ul>
-        <div className="btn-group">
-          <a href="#" class="btn btn-danger" role="button">Delete</a>
-          <a href="#" class="btn btn-warning" role="button">Edit</a>
-        </div>
-     
+      </ul>
+      <div className="btn-group">
+        <button  className="btn btn-danger" role="button">
+          Delete
+        </button>
+        <a onClick={() => {}} className="btn btn-warning" role="button">
+          Edit
+        </a>
+      </div>
     </div>
   );
 }

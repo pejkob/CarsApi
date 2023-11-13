@@ -19,9 +19,9 @@ export default function Card1(props) {
       })
     })
       .then((resp) => resp.json())
-      .then((res) => {
+      .then(()=>{
         window.location.reload();
-      });
+  });
   };
   
 

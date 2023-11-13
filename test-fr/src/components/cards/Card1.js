@@ -1,11 +1,31 @@
 import React, { useState } from "react";
+import"bootstrap/dist/css/bootstrap.css"
+
 
 export default function Card1(props) {
   const circleClass = props.color === "Mauv" ? "circle-mau" : "circle";
-  const [deleteSuccess, setDeleteSuccess] = useState(false); // State to track delete success
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
+
+  const handleEdit = () => {
+    const url = "https://localhost:7049/cars/";
+  
+    fetch(url + props.id, {
+      method: "PUT",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: document.getElementById("Name").value,
+        description: document.getElementById("Type").value,
+        color: document.getElementById("Color").value
+      })
+    })
+      .then((resp) => resp.json())
+      .then((res) => {
+        window.location.reload();
+      });
+  };
+  
 
   const handleDelete = () => {
-    console.log("Delete button clicked for ID:", props.id);
     const url = "https://localhost:7049/cars/";
 
     fetch(url + props.id, {
@@ -14,8 +34,9 @@ export default function Card1(props) {
       .then((resp) => resp.json())
       .then((res) => {
         if (res.isSuccess) {
-          setDeleteSuccess(true); // Set delete success state to true
+          setDeleteSuccess(true);
         }
+        window.location.reload();
       });
   };
 
@@ -38,12 +59,11 @@ export default function Card1(props) {
         <button onClick={handleDelete} className="btn btn-danger" role="button">
           Delete
         </button>
-        <a onClick={() => {}} className="btn btn-warning" role="button">
+        <button className="btn btn-warning" onClick={handleEdit}>
           Edit
-        </a>
+      </button>
       </div>
       
-      {/* Conditionally render the alert div */}
       {deleteSuccess && (
         <div className="alert alert-success" role="alert">
           Element removed

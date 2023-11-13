@@ -9,7 +9,7 @@ export default function Cars_Data() {
     const url="https://localhost:7049/cars";
     useEffect(function (){
         fetch(url).then(response => response.json())
-        .then(data => setData(data.result))
+        .then(data => setData(data))
     }, [])
    
     const cards=adat.map(item=>

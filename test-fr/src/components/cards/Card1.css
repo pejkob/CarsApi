@@ -12,6 +12,10 @@
    
   
 }
+
+.card:hover{
+    transform: scale(1.1);
+}
 .circle{
     position: absolute;
   top: 15px;

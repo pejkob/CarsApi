@@ -3,10 +3,10 @@ import React,{useState} from "react"
 
 
 
-export default function Form1()
+export default function Form2()
 {
 const [form,formSwitch]=useState(false);
-const handleNew=()=>{
+const handleEdit=()=>{
     const url="https://localhost:7049/cars/";
     fetch(url,{
         method:"POST",
@@ -27,7 +27,7 @@ const handleNew=()=>{
 return (
     <div>
       {form ? (
-        // Display the edit form
+        
         <form
           
           onSubmit={(event) => {
@@ -36,7 +36,7 @@ return (
           }}
         >
           { }
-          <h1>New data</h1>
+          <h1>Edit data</h1>
           <div className="form">
             <label className="form-text" htmlFor="name">
               Car name:
@@ -53,11 +53,11 @@ return (
             </label>
             <input className="form-control" type="text" id="Color" />
           </div>
-          <button onClick={handleNew} className="btn btn-primary">Send</button>
+          <button onClick={handleEdit} className="btn btn-primary">Save</button>
           <button onClick={()=>formSwitch(false)} className="btn btn-danger">X</button>
         </form>
       ) : (
-        // Display the button to show the form
+        
         <button
           className="btn btn-success"
           onClick={() => {

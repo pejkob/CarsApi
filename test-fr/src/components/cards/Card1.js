@@ -69,12 +69,7 @@ export default function Card1(props) {
         {!isEditing ? (
           <>
             <h5 className="card-title">{name}</h5>
-            <div
-              className={circleClass}
-              style={{
-                backgroundColor: props.color === 'Mauv' ? 'rgb(224, 176, 255)' : props.color,
-              }}
-            ></div>
+           
             <p className="card-text">{description}</p>
           </>
         ) : (
@@ -102,6 +97,12 @@ export default function Card1(props) {
       </div>
       <ul className="list-group list-group-flush">
         <li className="list-group-item">{props.color}</li>
+        <div
+              className={circleClass}
+              style={{
+                backgroundColor: props.color === 'Mauv' ? 'rgb(224, 176, 255)' : props.color,
+              }}
+            ></div>
       </ul>
       <div className="btn-group">
         {!isEditing ? (

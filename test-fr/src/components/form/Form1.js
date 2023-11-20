@@ -5,10 +5,12 @@ import React,{useState} from "react"
 
 export default function Form1()
 {
+
+  
 const [form,formSwitch]=useState(false);
-const handleNew=()=>{
+const handleNew=async()=>{
     const url="https://localhost:7049/cars/";
-    fetch(url,{
+   await fetch(url,{
         method:"POST",
         headers:{
             "Content-type": "application/json"
@@ -19,20 +21,16 @@ const handleNew=()=>{
             color: document.getElementById("Color").value
         })
     }).then((resp) => resp.json())
-    .then(()=>{
-      window.location.reload();
-});
+
+    
 }
 
 return (
     <div>
       {form ? (
-        // Display the edit form
         <form
-          
           onSubmit={(event) => {
             event.preventDefault();
-            
           }}
         >
           { }

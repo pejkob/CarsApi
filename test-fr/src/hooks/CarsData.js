@@ -1,22 +1,28 @@
 import React,{useState,useEffect} from "react";
 import Card1 from "../components/cards/Card1";
 
-export default function Cars_Data() {
+export default function CarsData() {
+
+    const [count,setCount]=useState(0)
+    const handleCountState=()=>
+    {
+        setCount(count+1);
+    }
 
     const [adat,setData]=useState([]);
     const url="https://localhost:7049/cars";
+
     useEffect(function (){
         fetch(url).then(response => response.json())
-        .then(data => setData(data))
-        console.log(adat);
-    }, [])
+        .then(data => setData(data.result))
+    }, [count])
    
     const cards=adat.map(item=>
     {
         return(
        
         
-         <Card1 key={item.id} {...item}/>
+         <Card1 key={item.id} {...item} updateState={handleCountState}/>
         
          
         )});

@@ -10,14 +10,8 @@ export default function Card1(props) {
   const [description, setDescription] = useState(props.description);
   const [color, setColor] = useState(props.color);
 
-  const handleEdit = () => {
-   
-
-    setIsEditing(false);
-    setDeleteSuccess(true); 
-    setTimeout(() => setDeleteSuccess(false), 3000);
-  };
-  const handleEditCall=()=>{
+  
+  const handleEditCall=async ()=>{
     const url = `https://localhost:7049/cars/${props.id}`;
 
     const nameField = document.getElementById("Name").value;
@@ -25,7 +19,7 @@ export default function Card1(props) {
     const colorField = document.getElementById("Color").value;
 
     
-      fetch(url, {
+   await fetch(url, {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -33,15 +27,14 @@ export default function Card1(props) {
           description: descriptionField,
           color: colorField
         })
-      }).then(() => {
-          window.location.reload()
-        })
+      })
+        props.updateState();
+      
   }
 
-  const handleDelete = () => {
+  const handleDelete =async () => {
     const url = `https://localhost:7049/cars/${props.id}`;
-
-    fetch(url, {
+    await fetch(url, {
       method: "DELETE",
     })
       .then((resp) => {
@@ -53,13 +46,14 @@ export default function Card1(props) {
       .then((res) => {
         if (res.isSuccess) {
           setDeleteSuccess(true);
-          window.location.reload();
         }
       })
       .catch(error => {
         setError('Error deleting data. Please try again.');
         console.error('There was an error!', error);
-      });
+      })
+      props.updateState();
+
   };
 
   return (

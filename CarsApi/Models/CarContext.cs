@@ -13,7 +13,7 @@ namespace CarsApi.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseMySql("server=localhost; database=cars; user=root; password=", ServerVersion.AutoDetect("server=localhost; database=cars; user=root; password="));
+                optionsBuilder.UseMySql("server=192.168.50.154; database=Cars; user=root; password=password", ServerVersion.AutoDetect("server=192.168.50.154; database=Cars; user=root; password=password"));
             }
         }
 

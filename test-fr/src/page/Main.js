@@ -1,6 +1,5 @@
 import CarsData from "../hooks/CarsData";
 import "bootstrap/dist/css/bootstrap.css"
-import Form1 from "../components/form/Form1";
  function Main()
 {
     return( 

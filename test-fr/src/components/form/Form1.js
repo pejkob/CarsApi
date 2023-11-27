@@ -20,24 +20,26 @@ return (
         >
           { }
           <h1>New data</h1>
+          <fieldset>
           <div className="form">
             <label className="form-text" htmlFor="name">
               Car name:
             </label>
-            <input className="form-control" type="text" id="Name" />
+            <input required className="form-control" type="text" id="Name" />
             <br />
             <label className="form-text" htmlFor="name">
               Car type:
             </label>
-            <input className="form-control" type="text" id="Type" />
+            <input required className="form-control" type="text" id="Type" />
             <br />
             <label className="form-text" htmlFor="name">
               Car color:
             </label>
-            <input className="form-control" type="text" id="Color" />
+            <input required className="form-control" type="text" id="Color" />
           </div>
           <PostCar updateState={props.updateState} formSwitch={formSwitch}/>
           <button onClick={()=>formSwitch(false)} className="btn btn-danger">X</button>
+          </fieldset>
         </form>
       ) : (
         <button

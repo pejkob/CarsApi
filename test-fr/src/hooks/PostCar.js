@@ -2,6 +2,20 @@ import React from 'react'
 
 
 function PostCar(props) {
+    
+    const checkInput=()=>
+    {
+        const name=document.getElementById("Name").value;
+        const description=document.getElementById("Type").value;
+        const color=document.getElementById("Color").value;
+        if(name!==""&&description!==""&&color!==""){
+            handleNew();
+        }
+        else{
+            console.log("error");
+        }
+    }
+     
     const handleNew=async()=>{
         const url="http://localhost:5167/cars/";
        await fetch(url,{
@@ -21,7 +35,7 @@ function PostCar(props) {
     }
   return (
     <div>
-        <button onClick={handleNew} className="btn btn-primary">Send</button>
+        <button onClick={checkInput} className="btn btn-primary">Send</button>
     </div>
   )
 }

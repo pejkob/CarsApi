@@ -20,11 +20,7 @@ export default function CarsData() {
     const cards=adat.map(item=>
     {
         return(
-       
-        
          <Card1 key={item.id} {...item} updateState={handleCountState}/>
-        
-         
         )});
     return(
         <>

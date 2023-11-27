@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import EditForm from '../form/EditForm';
 import DeleteCar from '../../hooks/DeleteCar';
+import EditCar from '../../hooks/EditCar';
 
 export default function Card1(props) {
   const circleClass = props.color === 'Mauv' ? 'circle-mau' : 'circle';
@@ -11,26 +12,6 @@ export default function Card1(props) {
   const [name, setName] = useState(props.name);
   const [description, setDescription] = useState(props.description);
   const [color, setColor] = useState(props.color);
-
-  
-  const handleEditCall=async ()=>{
-    const url = `http://localhost:5167/cars/${props.id}`;
-
-    const nameField = document.getElementById("Name").value;
-    const descriptionField = document.getElementById("Type").value;
-    const colorField = document.getElementById("Color").value;
-
-   await fetch(url, {
-        method: "PUT",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: nameField,
-          description: descriptionField,
-          color: colorField
-        })
-      })
-      props.updateState();
-  }
 
   return (
     <div key={props.key} className="card">
@@ -61,9 +42,7 @@ export default function Card1(props) {
         {!isEditing ? (
          <DeleteCar id={props.id} setDeleteSuccess={setDeleteSuccess} updateState={props.updateState} setError={setError}/>
         ) : (
-          <button onClick={handleEditCall} className="btn btn-primary">
-            Save
-          </button>
+          <EditCar id={props.id} updateState={props.updateState} isEditing={isEditing} setIsEditing={setIsEditing}/>
         )}
         <button
           className={!isEditing ? 'btn btn-warning' : 'btn btn-secondary'}

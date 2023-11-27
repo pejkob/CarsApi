@@ -8,9 +8,7 @@ import Form1 from "../components/form/Form1";
             <div className="col-md-9">
             <CarsData/>
             </div>
-            <div className="col-md-3">
-                <Form1/>
-            </div>
+           
         </div>
         )}
         

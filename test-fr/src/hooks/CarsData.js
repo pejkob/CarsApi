@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from "react";
 import Card1 from "../components/cards/Card1";
+import Form1 from "../components/form/Form1";
 
 export default function CarsData() {
 
@@ -20,10 +21,17 @@ export default function CarsData() {
     const cards=adat.map(item=>
     {
         return(
+        <>
+            
          <Card1 key={item.id} {...item} updateState={handleCountState}/>
+         </>
         )});
+        
     return(
         <>
+        <div className="col-md-3">
+            <Form1 updateState={handleCountState}/>
+        </div>
             {cards}
         </>
     )

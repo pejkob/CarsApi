@@ -34,7 +34,7 @@ export default function Card1(props) {
         <div
               className={circleClass}
               style={{
-                backgroundColor: props.color === 'Mauv' ? 'rgb(224, 176, 255)' : props.color,
+                backgroundColor: props.color === 'Mauv' ? 'Mauve' : props.color,
               }}
             ></div>
       </ul>

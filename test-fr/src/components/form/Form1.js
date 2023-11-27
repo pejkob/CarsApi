@@ -1,29 +1,14 @@
 import "bootstrap/dist/css/bootstrap.css"
 import React,{useState} from "react"
+import PostCar from "../../hooks/PostCar";
 
 
 
-export default function Form1()
+export default function Form1(props)
 {
 
   
 const [form,formSwitch]=useState(false);
-const handleNew=async()=>{
-    const url="http://localhost:5167/cars/";
-   await fetch(url,{
-        method:"POST",
-        headers:{
-            "Content-type": "application/json"
-        },
-        body:JSON.stringify({
-            name: document.getElementById("Name").value,
-            description: document.getElementById("Type").value,
-            color: document.getElementById("Color").value
-        })
-    }).then((resp) => resp.json())
-
-    
-}
 
 return (
     <div>
@@ -51,11 +36,10 @@ return (
             </label>
             <input className="form-control" type="text" id="Color" />
           </div>
-          <button onClick={handleNew} className="btn btn-primary">Send</button>
+          <PostCar updateState={props.updateState} formSwitch={formSwitch}/>
           <button onClick={()=>formSwitch(false)} className="btn btn-danger">X</button>
         </form>
       ) : (
-        // Display the button to show the form
         <button
           className="btn btn-success"
           onClick={() => {

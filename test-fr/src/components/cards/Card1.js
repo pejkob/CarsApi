@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import EditForm from '../form/EditForm';
+import DeleteCar from '../../hooks/DeleteCar';
 
 export default function Card1(props) {
   const circleClass = props.color === 'Mauv' ? 'circle-mau' : 'circle';
@@ -12,13 +14,12 @@ export default function Card1(props) {
 
   
   const handleEditCall=async ()=>{
-    const url = `https://localhost:7049/cars/${props.id}`;
+    const url = `http://localhost:5167/cars/${props.id}`;
 
     const nameField = document.getElementById("Name").value;
     const descriptionField = document.getElementById("Type").value;
     const colorField = document.getElementById("Color").value;
 
-    
    await fetch(url, {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
@@ -28,33 +29,8 @@ export default function Card1(props) {
           color: colorField
         })
       })
-        props.updateState();
-      
-  }
-
-  const handleDelete =async () => {
-    const url = `https://localhost:7049/cars/${props.id}`;
-    await fetch(url, {
-      method: "DELETE",
-    })
-      .then((resp) => {
-        if (!resp.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return resp.json();
-      })
-      .then((res) => {
-        if (res.isSuccess) {
-          setDeleteSuccess(true);
-        }
-      })
-      .catch(error => {
-        setError('Error deleting data. Please try again.');
-        console.error('There was an error!', error);
-      })
       props.updateState();
-
-  };
+  }
 
   return (
     <div key={props.key} className="card">
@@ -68,24 +44,7 @@ export default function Card1(props) {
           </>
         ) : (
           <>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="form-control mb-2" id='Name'
-            />
-            <input
-              type="text"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="form-control mb-2" id='Type'
-            />
-            <input
-              type="text"
-              value={color}
-              onChange={(e) => setColor(e.target.value)}
-              className="form-control mb-2" id='Color'
-            />
+           <EditForm color={color} description={description} name={name} setColor={setColor} setDescription={setDescription} setName={setName}/>
           </>
         )}
       </div>
@@ -100,9 +59,7 @@ export default function Card1(props) {
       </ul>
       <div className="btn-group">
         {!isEditing ? (
-          <button onClick={handleDelete} className="btn btn-danger">
-            Delete
-          </button>
+         <DeleteCar id={props.id} setDeleteSuccess={setDeleteSuccess} updateState={props.updateState} setError={setError}/>
         ) : (
           <button onClick={handleEditCall} className="btn btn-primary">
             Save

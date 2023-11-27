@@ -10,7 +10,7 @@ export default function CarsData() {
     }
 
     const [adat,setData]=useState([]);
-    const url="https://localhost:7049/cars";
+    const url="http://localhost:5167/cars";
 
     useEffect(function (){
         fetch(url).then(response => response.json())

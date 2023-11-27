@@ -9,7 +9,7 @@ export default function Form1()
   
 const [form,formSwitch]=useState(false);
 const handleNew=async()=>{
-    const url="https://localhost:7049/cars/";
+    const url="http://localhost:5167/cars/";
    await fetch(url,{
         method:"POST",
         headers:{
